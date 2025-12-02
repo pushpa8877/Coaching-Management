@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc, collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
@@ -99,28 +100,32 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-6">
-      <Card className="w-full max-w-lg shadow-2xl">
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="bg-blue-100 p-4 rounded-full">
-              <UserPlus className="w-12 h-12 text-blue-700" />
+    <div className="relative min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center p-6 overflow-hidden">
+      {/* Subtle Background Circles - Matching Landing Page */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-white/30 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-orange-100/20 rounded-full blur-3xl -z-10" />
+
+      <Card className="w-full max-w-lg shadow-2xl border border-gray-100">
+        <CardHeader className="text-center pb-4">
+          <div className="flex justify-center mb-3">
+            <div className="bg-orange-100 p-3 rounded-lg">
+              <UserPlus className="w-8 h-8 text-orange-600" />
             </div>
           </div>
-          <CardTitle className="text-3xl font-bold text-gray-800">Student Registration</CardTitle>
-          <p className="text-gray-600 mt-2">Join Excellence Coaching Today!</p>
+          <CardTitle className="text-2xl font-bold text-gray-900">Student Registration</CardTitle>
+          <p className="text-sm text-gray-600 mt-2">Join Excellence Coaching Today!</p>
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
 
             {/* AUTO GENERATED STUDENT ID - DISPLAY ONLY */}
-            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 rounded-lg p-4 text-center">
-              <Label className="text-sm font-medium text-indigo-700 flex items-center justify-center gap-2">
-                <IdCard className="w-5 h-5" />
+            <div className="bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 rounded-lg p-3 text-center">
+              <Label className="text-xs font-medium text-orange-700 flex items-center justify-center gap-2">
+                <IdCard className="w-4 h-4" />
                 Your Unique Student ID
               </Label>
-              <div className="text-2xl font-bold text-indigo-800 mt-2 tracking-wider">
+              <div className="text-xl font-bold text-orange-600 mt-1 tracking-wider">
                 {studentId}
               </div>
               <p className="text-xs text-gray-500 mt-1">Keep this safe • Shown in all records</p>
@@ -199,22 +204,21 @@ export default function RegisterPage() {
 
             <Button 
               type="submit" 
-              className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-6" 
+              className="w-full bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white text-base py-3 rounded-lg" 
               disabled={loading}
             >
               {loading ? "Creating Account..." : "Register Now"}
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <Button 
-              variant="link" 
-              onClick={() => router.push("/auth/login")} 
-              className="text-blue-600"
+          <div className="mt-6 pt-6 border-t border-gray-200 text-center">
+            <Link
+              href="/auth/login"
+              className="inline-flex items-center gap-2 text-orange-600 hover:text-orange-700 font-medium text-sm transition-colors"
             >
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <ArrowLeft className="w-4 h-4" />
               Already have an account? Login
-            </Button>
+            </Link>
           </div>
         </CardContent>
       </Card>
